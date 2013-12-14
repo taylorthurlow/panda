@@ -56,7 +56,7 @@ public class WindowMainController implements Initializable
 	private TableColumn<FileMP3, String> titleCol;
 
 	@FXML
-	private TableColumn<FileMP3, String> trackCol;
+	private TableColumn<FileMP3, Integer> trackCol;
 
 	@FXML
 	private TableColumn<FileMP3, String> yearCol;
@@ -125,8 +125,8 @@ public class WindowMainController implements Initializable
 		artistCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("artist"));
 		albumCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("album"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("title"));
-		trackCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("trackProxy"));
-		yearCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("yearProxy"));
+		trackCol.setCellValueFactory(new PropertyValueFactory<FileMP3, Integer>("track"));
+		yearCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("year"));
 		genreCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("genre"));
 		filePathCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("path"));
 		mainTable.setItems(list);
