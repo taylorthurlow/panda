@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="728.0" prefWidth="1023.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.TaylorThurlow.WindowMainController">
+  <children>
+    <SplitPane dividerPositions="0.0371900826446281" focusTraversable="true" orientation="VERTICAL" prefHeight="728.0" prefWidth="1023.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <items>
+        <MenuBar>
+          <menus>
+            <Menu mnemonicParsing="false" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.2983316977428852" focusTraversable="true" prefHeight="728.0" prefWidth="1023.0">
+          <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="200.0">
+              <children>
+                <SplitPane dividerPositions="0.4638728323699422" focusTraversable="true" orientation="VERTICAL" prefHeight="694.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <items>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                      <children>
+                        <ImageView fx:id="artwork" fitHeight="300.0" fitWidth="300.0" layoutX="0.0" layoutY="-62.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@../../../../../../../../../Desktop/none.jpg" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                      <children>
+                        <TabPane prefHeight="436.0" prefWidth="299.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <tabs>
+                            <Tab text="Metadata">
+                              <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                  <children>
+                                    <TableView editable="false" prefHeight="405.0" prefWidth="299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="164.0" text="Tag" />
+                                        <TableColumn prefWidth="75.0" text="Value" />
+                                      </columns>
+                                    </TableView>
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Playlists">
+                              <content>
+                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                  <children>
+                                    <ListView prefHeight="437.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                      </children>
+                    </AnchorPane>
+                  </items>
+                </SplitPane>
+              </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+              <children>
+                <SplitPane dividerPositions="0.9234104046242775" focusTraversable="true" orientation="VERTICAL" prefHeight="726.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <items>
+                    <TableView fx:id="mainTable" prefHeight="685.0" prefWidth="683.0">
+                      <columns>
+                        <TableColumn prefWidth="150.0" text="Artist" fx:id="artistCol" />
+                        <TableColumn prefWidth="150.0" text="Album" fx:id="albumCol" />
+                        <TableColumn prefWidth="75.0" text="Title" fx:id="titleCol" />
+                        <TableColumn prefWidth="75.0" text="Track" fx:id="trackCol" />
+                        <TableColumn prefWidth="75.0" text="Year" fx:id="yearCol" />
+                        <TableColumn prefWidth="75.0" text="Genre" fx:id="genreCol" />
+                        <TableColumn prefWidth="75.0" text="File Path" fx:id="filePathCol" />
+                      </columns>
+                    </TableView>
+                    <FlowPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" rotate="0.0" style="-fx-alignment: CENTER;">
+                      <children>
+                        <Button fx:id="buttonAddFolder" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonAddFolder" prefHeight="30.0" prefWidth="100.0" text="Add Folder" textAlignment="CENTER">
+                          <FlowPane.margin>
+                            <Insets left="5.0" right="5.0" fx:id="x1" />
+                          </FlowPane.margin>
+                        </Button>
+                        <Button fx:id="buttonAddFile" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Add File" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonPlayPause" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Play / Pause" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonStop" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Stop" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonSavePlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Save Playlist" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonLoadPlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Load Playlist" textAlignment="CENTER" />
+                      </children>
+                    </FlowPane>
+                  </items>
+                </SplitPane>
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+      </items>
+    </SplitPane>
+  </children>
+</AnchorPane>
