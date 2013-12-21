@@ -2,6 +2,7 @@ package edu.TaylorThurlow;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class musicPlayer extends Application
 	private WindowMainController mainController;
 	private MediaPlayer mainPlayer;
 	private ObservableList<FileMP3> list = FXCollections.observableArrayList();
+	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
 
 	@Override
 	public void start(Stage stage) throws Exception

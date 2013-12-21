@@ -70,21 +70,17 @@ public class FileMP3
 					setArtwork((Image) data.get("image"));
 				} else
 				{
-					System.out.println("No artwork found in tags, searching directory.");
 					String fileName = path.substring(path.lastIndexOf('\\'), path.length());
 					String containingFolder = path.substring(0, path.length() - fileName.length());
 
-					System.out.println("Containing folder: " + containingFolder);
 					Boolean foundFile = false;
 					String foundName = "";
 					for (String name : validNames)
 					{
 						String searchFor = "\\" + containingFolder + "\\" + name + ".jpg";
-						System.out.println("Searching for: " + searchFor);
 						File f = new File(searchFor);
 						if (f.exists())
 						{
-							System.out.println("Found artwork in folder: " + containingFolder + "\\" + name + ".jpg");
 							foundFile = true;
 							foundName = name;
 							break;
@@ -96,9 +92,7 @@ public class FileMP3
 						String path = containingFolder + "/" + foundName + ".jpg";
 						path = path.replace("\\", "/");
 						path = "file:///" + path;
-						System.out.println("Input path: " + path);
 						File file = new File(path);
-						System.out.println("file.getPath() = " + file.getPath());
 						Image img = new Image(file.getPath());
 						setArtwork(img);
 					} else
