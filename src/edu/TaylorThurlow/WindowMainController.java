@@ -81,18 +81,21 @@ public class WindowMainController implements Initializable
 	private void buttonAddFile()
 	{
 		System.out.println("DEBUG: Add File button pressed.");
+
 	}
 
 	@FXML
 	private void buttonPlayPause()
 	{
 		System.out.println("DEBUG: Play / Pause button pressed.");
+		musicPlayer.getInstance().playPause();
 	}
 
 	@FXML
 	private void buttonStop()
 	{
 		System.out.println("DEBUG: Stop button pressed.");
+		musicPlayer.getInstance().stopFile();
 	}
 
 	@FXML

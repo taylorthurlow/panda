@@ -37,10 +37,9 @@ public class FileMP3
 			@Override
 			public void run()
 			{
-				
 				ObservableMap<String, Object> data = media.getMetadata();
 				System.out.println(data.toString());
-				
+
 				setArtist(data.get("artist").toString());
 				setAlbum(data.get("album").toString());
 				setTitle(data.get("title").toString());
@@ -53,7 +52,7 @@ public class FileMP3
 				if (data.get("track number") != null)
 				{
 					setTrack((int) data.get("track number"));
-					System.out.println("setting track number to " + (int)data.get("track number"));
+					System.out.println("setting track number to " + (int) data.get("track number"));
 				} else
 				{
 					setTrack(0);
@@ -62,12 +61,12 @@ public class FileMP3
 				if (data.get("track count") != null)
 				{
 					setTotalTracks((int) data.get("track count"));
-					System.out.println("setting track count to " + (int)data.get("track count"));
+					System.out.println("setting track count to " + (int) data.get("track count"));
 				} else
 				{
 					setTotalTracks(0);
 				}
-				
+
 				if (artwork == null)
 				{
 					System.out.println("No artwork found in tags, searching directory.");
@@ -288,9 +287,11 @@ public class FileMP3
 	 */
 	public void setGenre(String genre)
 	{
-		if(genre != null) {
+		if (genre != null)
+		{
 			this.genre = genre;
-		} else {
+		} else
+		{
 			this.genre = "?";
 		}
 	}

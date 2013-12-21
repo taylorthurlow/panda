@@ -14,6 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class musicPlayer extends Application
 {
@@ -22,7 +23,6 @@ public class musicPlayer extends Application
 	private Stage mainStage;
 	private WindowMainController mainController;
 	private MediaPlayer mainPlayer;
-	private Boolean currentlyPlaying = false;
 	private ObservableList<FileMP3> list = FXCollections.observableArrayList();
 
 	@Override
@@ -93,25 +93,51 @@ public class musicPlayer extends Application
 			}
 		}
 	}
-	
-	public void addMp3ToList(FileMP3 toAdd) {
+
+	public void addMp3ToList(FileMP3 toAdd)
+	{
 		list.add(toAdd);
 		System.out.println("added to list: " + toAdd.toString());
 	}
 
 	public void playFile(FileMP3 file) throws Exception
 	{
-		if (currentlyPlaying)
-		{
-			mainPlayer.stop();
-			currentlyPlaying = false;
-		}
-
 		File audioFile = new File(file.getPath());
 		Media media = new Media(audioFile.toURI().toURL().toString());
 		mainPlayer = new MediaPlayer(media);
 		mainPlayer.play();
-		currentlyPlaying = true;
+	}
+
+	public void playFileAtTime(FileMP3 file, Duration time) throws Exception
+	{
+		File audioFile = new File(file.getPath());
+		Media media = new Media(audioFile.toURI().toURL().toString());
+		mainPlayer = new MediaPlayer(media);
+		mainPlayer.setStartTime(time);
+	}
+
+	public void playPause()
+	{
+
+		if (mainPlayer.getStatus() == MediaPlayer.Status.PAUSED)
+		{
+			mainPlayer.play();
+		} else if (mainPlayer.getStatus() == MediaPlayer.Status.PLAYING)
+		{
+			mainPlayer.pause();
+		}
+
+	}
+
+	public void stopFile()
+	{
+		try
+		{
+			mainPlayer.stop();
+		} catch (Exception e)
+		{
+			showErrorDialog(e.getMessage());
+		}
 
 	}
 

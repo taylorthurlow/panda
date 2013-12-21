@@ -104,8 +104,8 @@
                           </FlowPane.margin>
                         </Button>
                         <Button fx:id="buttonAddFile" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Add File" textAlignment="CENTER" FlowPane.margin="$x1" />
-                        <Button fx:id="buttonPlayPause" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Play / Pause" textAlignment="CENTER" FlowPane.margin="$x1" />
-                        <Button fx:id="buttonStop" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Stop" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonPlayPause" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonPlayPause" prefHeight="30.0" prefWidth="100.0" text="Play / Pause" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonStop" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonStop" prefHeight="30.0" prefWidth="100.0" text="Stop" textAlignment="CENTER" FlowPane.margin="$x1" />
                         <Button fx:id="buttonSavePlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Save Playlist" textAlignment="CENTER" FlowPane.margin="$x1" />
                         <Button fx:id="buttonLoadPlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Load Playlist" textAlignment="CENTER" />
                       </children>
