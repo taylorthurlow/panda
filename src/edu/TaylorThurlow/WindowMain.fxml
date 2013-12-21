@@ -10,42 +10,15 @@
 
 <AnchorPane id="AnchorPane" prefHeight="728.0" prefWidth="1023.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.TaylorThurlow.WindowMainController">
   <children>
-    <SplitPane dividerPositions="0.0371900826446281" focusTraversable="true" orientation="VERTICAL" prefHeight="728.0" prefWidth="1023.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane dividerPositions="" focusTraversable="true" orientation="VERTICAL" prefHeight="728.0" prefWidth="1023.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <MenuBar>
-          <menus>
-            <Menu mnemonicParsing="false" text="File">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Close" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Delete" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-              <items>
-                <MenuItem mnemonicParsing="false" text="About" />
-              </items>
-            </Menu>
-          </menus>
-        </MenuBar>
         <SplitPane dividerPositions="0.2983316977428852" focusTraversable="true" prefHeight="728.0" prefWidth="1023.0">
           <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="200.0">
               <children>
-                <SplitPane dividerPositions="0.4638728323699422" focusTraversable="true" orientation="VERTICAL" prefHeight="694.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane disable="false" dividerPositions="0.4196675900277008" focusTraversable="true" orientation="VERTICAL" prefHeight="694.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <items>
-                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                      <children>
-                        <ImageView fx:id="artwork" fitHeight="300.0" fitWidth="300.0" layoutX="0.0" layoutY="-62.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@../../../../../../../../../Desktop/none.jpg" />
-                          </image>
-                        </ImageView>
-                      </children>
-                    </AnchorPane>
+                    <ImageView fx:id="artwork" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                       <children>
                         <TabPane prefHeight="436.0" prefWidth="299.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -83,7 +56,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
               <children>
-                <SplitPane dividerPositions="0.9234104046242775" focusTraversable="true" orientation="VERTICAL" prefHeight="726.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.9265927977839336" focusTraversable="true" orientation="VERTICAL" prefHeight="726.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <items>
                     <TableView fx:id="mainTable" prefHeight="685.0" prefWidth="683.0">
                       <columns>

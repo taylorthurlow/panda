@@ -20,7 +20,6 @@ public class FileMP3
 	private Duration length;
 	private String genre;
 	private Image artwork = null;
-	//private String lengthProxy;
 
 	private String[] validNames =
 	{
@@ -38,7 +37,6 @@ public class FileMP3
 			public void run()
 			{
 				ObservableMap<String, Object> data = media.getMetadata();
-				System.out.println(data.toString());
 
 				setArtist(data.get("artist").toString());
 				setAlbum(data.get("album").toString());
@@ -46,13 +44,12 @@ public class FileMP3
 				setGenre(data.get("genre").toString());
 				setYear(data.get("year").toString());
 				setLength((Duration) data.get("duration"));
-				setArtwork((Image) data.get("image"));
+
 				setPath(path);
 
 				if (data.get("track number") != null)
 				{
 					setTrack((int) data.get("track number"));
-					System.out.println("setting track number to " + (int) data.get("track number"));
 				} else
 				{
 					setTrack(0);
@@ -61,13 +58,17 @@ public class FileMP3
 				if (data.get("track count") != null)
 				{
 					setTotalTracks((int) data.get("track count"));
-					System.out.println("setting track count to " + (int) data.get("track count"));
 				} else
 				{
 					setTotalTracks(0);
 				}
 
-				if (artwork == null)
+				Image testArt = (Image) data.get("image");
+
+				if (testArt != null)
+				{
+					setArtwork((Image) data.get("image"));
+				} else
 				{
 					System.out.println("No artwork found in tags, searching directory.");
 					String fileName = path.substring(path.lastIndexOf('\\'), path.length());
@@ -92,9 +93,17 @@ public class FileMP3
 
 					if (foundFile)
 					{
-						System.out.println("Found " + foundName);
-						//URL resource = getClass().getResource(containingFolder + "\\" + name + ".jpg");
-						//setArtwork(new Image(new File(resource).getAbsolutePath().));
+						String path = containingFolder + "/" + foundName + ".jpg";
+						path = path.replace("\\", "/");
+						path = "file:///" + path;
+						System.out.println("Input path: " + path);
+						File file = new File(path);
+						System.out.println("file.getPath() = " + file.getPath());
+						Image img = new Image(file.getPath());
+						setArtwork(img);
+					} else
+					{
+
 					}
 				}
 
