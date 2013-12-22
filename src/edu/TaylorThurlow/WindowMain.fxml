@@ -23,6 +23,15 @@
                       <children>
                         <TabPane prefHeight="436.0" prefWidth="299.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
+                            <Tab text="Playlists">
+                              <content>
+                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                  <children>
+                                    <ListView fx:id="playlistList" prefHeight="437.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                  </children>
+                                </AnchorPane>
+                              </content>
+                            </Tab>
                             <Tab text="Metadata">
                               <content>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -33,15 +42,6 @@
                                         <TableColumn prefWidth="75.0" text="Value" />
                                       </columns>
                                     </TableView>
-                                  </children>
-                                </AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab text="Playlists">
-                              <content>
-                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                  <children>
-                                    <ListView prefHeight="437.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                   </children>
                                 </AnchorPane>
                               </content>
@@ -79,7 +79,7 @@
                         <Button fx:id="buttonAddFile" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Add File" textAlignment="CENTER" FlowPane.margin="$x1" />
                         <Button fx:id="buttonPlayPause" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonPlayPause" prefHeight="30.0" prefWidth="100.0" text="Play / Pause" textAlignment="CENTER" FlowPane.margin="$x1" />
                         <Button fx:id="buttonStop" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonStop" prefHeight="30.0" prefWidth="100.0" text="Stop" textAlignment="CENTER" FlowPane.margin="$x1" />
-                        <Button fx:id="buttonSavePlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Save Playlist" textAlignment="CENTER" FlowPane.margin="$x1" />
+                        <Button fx:id="buttonSavePlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" onMouseReleased="#buttonSavePlaylist" prefHeight="30.0" prefWidth="100.0" text="Save Playlist" textAlignment="CENTER" FlowPane.margin="$x1" />
                         <Button fx:id="buttonLoadPlaylist" maxHeight="30.0" maxWidth="100.0" minHeight="30.0" minWidth="100.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Load Playlist" textAlignment="CENTER" />
                       </children>
                     </FlowPane>

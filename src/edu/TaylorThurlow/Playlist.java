@@ -1,6 +1,7 @@
 package edu.TaylorThurlow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Playlist
 {
@@ -8,7 +9,7 @@ public class Playlist
 	private ArrayList<String> paths = new ArrayList<String>();
 	private int totalSongs;
 	private String name;
-	private int id;
+	private long id;
 
 	public Playlist()
 	{
@@ -73,7 +74,7 @@ public class Playlist
 
 	public String[] getArray()
 	{
-		String[] array = (String[]) paths.toArray();
+		String[] array = Arrays.copyOf(paths.toArray(), paths.toArray().length, String[].class);
 		return array;
 	}
 
@@ -92,13 +93,18 @@ public class Playlist
 		this.name = name;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	public String toString()
+	{
+		return "" + this.name + this.id;
 	}
 }

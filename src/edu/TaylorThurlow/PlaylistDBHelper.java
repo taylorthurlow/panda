@@ -38,12 +38,15 @@ public class PlaylistDBHelper
 	{
 		if (dbConn == null)
 		{
+			System.out.println("DEBUG: dbConn == null, connecting");
 			connect();
 		}
 
 		Statement statement = dbConn.createStatement();
 		statement.setQueryTimeout(30);
-		String sql = "CREATE  TABLE \"main\".\"playlists\" (\"id\" INTEGER PRIMARY KEY  NOT NULL  UNIQUE , \"name\" VARCHAR NOT NULL  DEFAULT newplaylist, \"paths\" VARCHAR)";
+		String sql = "CREATE TABLE \"playlists\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE , \"name\" VARCHAR NOT NULL DEFAULT newplaylist, \"paths\" VARCHAR)";
+
+		statement.executeUpdate(sql);
 	}
 
 	public void create(Playlist playlist) throws ClassNotFoundException, SQLException
@@ -67,6 +70,22 @@ public class PlaylistDBHelper
 		}
 
 		sql += "\"" + storedPath + "\")";
+
+		statement.executeUpdate(sql);
+
+		ResultSet rs = statement.getGeneratedKeys();
+
+		long id = -1;
+		
+		if (rs.next())
+		{
+			id = rs.getLong(1);
+			System.out.println("DEBUG: Setting id to: " + id);
+		}
+
+		playlist.setId(id);
+		musicPlayer.getInstance().populatePlaylistsList();
+
 	}
 
 	public ArrayList<Playlist> read() throws ClassNotFoundException, SQLException

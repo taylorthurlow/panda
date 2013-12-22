@@ -28,82 +28,93 @@ public class FileMP3
 
 	public FileMP3(final String path) throws Exception
 	{
-		File fileToReadMetadata = new File(path);
-		final Media media = new Media(fileToReadMetadata.toURI().toURL().toString());
-		final MediaPlayer tester = new MediaPlayer(media);
-		tester.setOnReady(new Runnable()
+		if (!path.equals("NOTFOUNDERROR"))
 		{
-			@Override
-			public void run()
+			File fileToReadMetadata = new File(path);
+			final Media media = new Media(fileToReadMetadata.toURI().toURL().toString());
+			final MediaPlayer tester = new MediaPlayer(media);
+			tester.setOnReady(new Runnable()
 			{
-				ObservableMap<String, Object> data = media.getMetadata();
-
-				setArtist(data.get("artist").toString());
-				setAlbum(data.get("album").toString());
-				setTitle(data.get("title").toString());
-				setGenre(data.get("genre").toString());
-				setYear(data.get("year").toString());
-				setLength((Duration) data.get("duration"));
-
-				setPath(path);
-
-				if (data.get("track number") != null)
+				@Override
+				public void run()
 				{
-					setTrack((int) data.get("track number"));
-				} else
-				{
-					setTrack(0);
-				}
+					ObservableMap<String, Object> data = media.getMetadata();
 
-				if (data.get("track count") != null)
-				{
-					setTotalTracks((int) data.get("track count"));
-				} else
-				{
-					setTotalTracks(0);
-				}
+					setArtist(data.get("artist").toString());
+					setAlbum(data.get("album").toString());
+					setTitle(data.get("title").toString());
+					setGenre(data.get("genre").toString());
+					setYear(data.get("year").toString());
+					setLength((Duration) data.get("duration"));
 
-				Image testArt = (Image) data.get("image");
+					setPath(path);
 
-				if (testArt != null)
-				{
-					setArtwork((Image) data.get("image"));
-				} else
-				{
-					String fileName = path.substring(path.lastIndexOf('\\'), path.length());
-					String containingFolder = path.substring(0, path.length() - fileName.length());
-
-					Boolean foundFile = false;
-					String foundName = "";
-					for (String name : validNames)
+					if (data.get("track number") != null)
 					{
-						String searchFor = "\\" + containingFolder + "\\" + name + ".jpg";
-						File f = new File(searchFor);
-						if (f.exists())
+						setTrack((int) data.get("track number"));
+					} else
+					{
+						setTrack(0);
+					}
+
+					if (data.get("track count") != null)
+					{
+						setTotalTracks((int) data.get("track count"));
+					} else
+					{
+						setTotalTracks(0);
+					}
+
+					Image testArt = (Image) data.get("image");
+
+					if (testArt != null)
+					{
+						setArtwork((Image) data.get("image"));
+					} else
+					{
+						String fileName = path.substring(path.lastIndexOf('\\'), path.length());
+						String containingFolder = path.substring(0, path.length() - fileName.length());
+
+						Boolean foundFile = false;
+						String foundName = "";
+						for (String name : validNames)
 						{
-							foundFile = true;
-							foundName = name;
-							break;
+							String searchFor = "\\" + containingFolder + "\\" + name + ".jpg";
+							File f = new File(searchFor);
+							if (f.exists())
+							{
+								foundFile = true;
+								foundName = name;
+								break;
+							}
+						}
+
+						if (foundFile)
+						{
+							String path = containingFolder + "/" + foundName + ".jpg";
+							path = path.replace("\\", "/");
+							path = "file:///" + path;
+							File file = new File(path);
+							Image img = new Image(file.getPath());
+							setArtwork(img);
+						} else
+						{
+
 						}
 					}
 
-					if (foundFile)
-					{
-						String path = containingFolder + "/" + foundName + ".jpg";
-						path = path.replace("\\", "/");
-						path = "file:///" + path;
-						File file = new File(path);
-						Image img = new Image(file.getPath());
-						setArtwork(img);
-					} else
-					{
-
-					}
+					musicPlayer.getInstance().addMp3ToList(FileMP3.this);
 				}
-
-				musicPlayer.getInstance().addMp3ToList(FileMP3.this);
-			}
-		});
+			});
+		} else {
+			setArtist("File not found.");
+			setAlbum("");
+			setTitle("");
+			setGenre("");
+			setYear("");
+			setTrack(0);
+			setTotalTracks(0);
+		}
 
 	}
 
@@ -243,7 +254,12 @@ public class FileMP3
 	 */
 	public Image getArtwork()
 	{
-		return artwork;
+		if(artwork != null) {
+			return artwork;
+		} else {
+			File art = new File("none.jpg");
+			return new Image(art.getPath());
+		}
 	}
 
 	/**

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,6 +43,9 @@ public class WindowMainController implements Initializable
 	 * Tables and lists
 	 */
 	private ObservableList<FileMP3> data;
+
+	@FXML
+	private ListView<Playlist> playlistList = new ListView<Playlist>();
 
 	@FXML
 	private TableView<FileMP3> mainTable = new TableView<FileMP3>();
@@ -102,6 +106,7 @@ public class WindowMainController implements Initializable
 	private void buttonSavePlaylist()
 	{
 		System.out.println("DEBUG: Save playlist button pressed.");
+		musicPlayer.getInstance().savePlaylist();
 	}
 
 	@FXML
@@ -121,10 +126,6 @@ public class WindowMainController implements Initializable
 	 */
 	public void setMainTableData(ObservableList<FileMP3> list)
 	{
-		for (FileMP3 file : list)
-		{
-			System.out.println(file.toString());
-		}
 		artistCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("artist"));
 		albumCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("album"));
 		titleCol.setCellValueFactory(new PropertyValueFactory<FileMP3, String>("title"));
@@ -135,6 +136,16 @@ public class WindowMainController implements Initializable
 		mainTable.setItems(list);
 	}
 
+	/**
+	 * Lists handled here
+	 */
+	public void setPlaylistListData(ObservableList<Playlist> list)
+	{
+		System.out.println("DEBUG: setPlaylistListData(list) called. 'list' contains:");
+		System.out.println("DEBUG: " + list.toString());
+		playlistList.setItems(list);
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
@@ -143,18 +154,31 @@ public class WindowMainController implements Initializable
 			@Override
 			public void changed(ObservableValue observable, Object oldValue, Object newValue)
 			{
-				System.out.println("detected row selected");
+				System.out.println("DEBUG: Main list row selected.");
 				FileMP3 selectedFile = (FileMP3) newValue;
 				Image art = selectedFile.getArtwork();
 				artwork.setImage(art);
 
 				try
 				{
+					musicPlayer.getInstance().stopFile();
 					musicPlayer.getInstance().playFile(selectedFile);
 				} catch (Exception ex)
 				{
+					ex.printStackTrace();
 					musicPlayer.getInstance().showErrorDialog(ex.getMessage());
 				}
+			}
+		});
+
+		playlistList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener()
+		{
+			@Override
+			public void changed(ObservableValue observable, Object oldValue, Object newValue)
+			{
+				System.out.println("DEBUG: Playlist list row selected.");
+				Playlist selectedPlaylist = (Playlist) newValue;
+				musicPlayer.getInstance().displayPlaylist(selectedPlaylist);
 			}
 		});
 	}

@@ -25,7 +25,7 @@ public class musicPlayer extends Application
 	private WindowMainController mainController;
 	private MediaPlayer mainPlayer;
 	private ObservableList<FileMP3> list = FXCollections.observableArrayList();
-	private ArrayList<Playlist> playlists = new ArrayList<Playlist>();
+	private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
 
 	@Override
 	public void start(Stage stage) throws Exception
@@ -39,6 +39,7 @@ public class musicPlayer extends Application
 		mainController = loader.getController();
 		stage.setScene(scene);
 		stage.show();
+		populatePlaylistsList();
 	}
 
 	public static void main(String[] args)
@@ -48,8 +49,7 @@ public class musicPlayer extends Application
 
 	public void updateList()
 	{
-		System.out.println("updateList called, here's the list:");
-		System.out.println(list);
+		System.out.println("DEBUG: updateList called.");
 		mainController.setMainTableData(list);
 	}
 
@@ -61,7 +61,7 @@ public class musicPlayer extends Application
 		if (inFile != null)
 		{
 			String path = inFile.getAbsolutePath();
-			System.out.println("Loading folder: " + path);
+			System.out.println("DEBUG: Loading folder: " + path);
 			list.removeAll(list);
 			listFilesInFolder(inFile);
 		}
@@ -99,7 +99,7 @@ public class musicPlayer extends Application
 	public void addMp3ToList(FileMP3 toAdd)
 	{
 		list.add(toAdd);
-		System.out.println("added to list: " + toAdd.toString());
+		System.out.println("DEBUG: added to list: " + toAdd.toString());
 	}
 
 	public void playFile(FileMP3 file) throws Exception
@@ -120,7 +120,6 @@ public class musicPlayer extends Application
 
 	public void playPause()
 	{
-
 		if (mainPlayer.getStatus() == MediaPlayer.Status.PAUSED)
 		{
 			mainPlayer.play();
@@ -128,19 +127,133 @@ public class musicPlayer extends Application
 		{
 			mainPlayer.pause();
 		}
+	}
 
+	public void savePlaylist()
+	{
+		System.out.println("DEBUG: Save playlist started.");
+		ArrayList<String> paths = new ArrayList<String>();
+		Playlist newPlaylist = new Playlist();
+
+		for (FileMP3 entry : list)
+		{
+			System.out.println("DEBUG: Adding to paths arraylist: " + entry.getPath());
+			paths.add(entry.getPath());
+		}
+
+		for (String entry : paths)
+		{
+			newPlaylist.addSong(entry);
+		}
+
+		PlaylistDBHelper helper = new PlaylistDBHelper("playlists");
+		if (!helper.dbExists())
+		{
+			System.out.print("DEBUG: DB doesn't exist, creating.. ");
+			try
+			{
+				helper.createDatabase();
+				System.out.println("Created.");
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				showErrorDialog(e.getMessage());
+			}
+		}
+
+		try
+		{
+			System.out.print("DEBUG: Connecting to helper.. ");
+			helper.connect();
+			System.out.println("Connected.");
+			helper.create(newPlaylist);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			showErrorDialog(e.getMessage());
+		}
 	}
 
 	public void stopFile()
 	{
 		try
 		{
-			mainPlayer.stop();
+			if (mainPlayer.getStatus() == MediaPlayer.Status.PLAYING)
+			{
+				mainPlayer.stop();
+			}
 		} catch (Exception e)
 		{
 			showErrorDialog(e.getMessage());
 		}
 
+	}
+
+	public void populatePlaylistsList()
+	{
+		PlaylistDBHelper helper = new PlaylistDBHelper("playlists");
+		if (!helper.dbExists())
+		{
+			System.out.print("DEBUG: DB doesn't exist, creating.. ");
+			try
+			{
+				helper.createDatabase();
+				System.out.println("Created.");
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				showErrorDialog(e.getMessage());
+			}
+		}
+
+		try
+		{
+			System.out.print("DEBUG: Connecting to helper.. ");
+			helper.connect();
+			System.out.println("Connected.");
+
+			playlists.removeAll(playlists);
+			ArrayList<Playlist> tempList = helper.read();
+
+			for (Playlist entry : tempList)
+			{
+				System.out.println("DEBUG: Adding to tempList: " + entry.getName() + " - "
+						+ entry.getPathsSerialized());
+				playlists.add(entry);
+			}
+
+			mainController.setPlaylistListData(playlists);
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			showErrorDialog(e.getMessage());
+		}
+	}
+
+	public void displayPlaylist(Playlist toDisplay)
+	{
+		list.removeAll(list);
+		String[] paths = toDisplay.getArray();
+		for (String entry : paths)
+		{
+			try
+			{
+				File toTest = new File(entry);
+				if (toTest.exists())
+				{
+					FileMP3 newFile = new FileMP3(entry);
+				} else
+				{
+					FileMP3 newFile = new FileMP3("NOTFOUNDERROR");
+				}
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				showErrorDialog(e.getMessage());
+			}
+		}
+		updateList();
 	}
 
 	public void showErrorDialog(String message)
@@ -161,6 +274,7 @@ public class musicPlayer extends Application
 			dialogStage.showAndWait();
 		} catch (Exception e)
 		{
+			// Cant show error dialog when theres an error showing the dialog. Heh.
 			e.printStackTrace();
 		}
 	}
@@ -188,5 +302,10 @@ public class musicPlayer extends Application
 	public WindowMainController getMainController()
 	{
 		return mainController;
+	}
+
+	public MediaPlayer getMainPlayer()
+	{
+		return mainPlayer;
 	}
 }
