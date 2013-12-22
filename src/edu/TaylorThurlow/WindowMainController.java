@@ -25,9 +25,6 @@ public class WindowMainController implements Initializable
 	private Button buttonAddFolder;
 
 	@FXML
-	private Button buttonAddFile;
-
-	@FXML
 	private Button buttonPlayPause;
 
 	@FXML
@@ -35,9 +32,6 @@ public class WindowMainController implements Initializable
 
 	@FXML
 	private Button buttonSavePlaylist;
-
-	@FXML
-	private Button buttonLoadPlaylist;
 
 	/**
 	 * Tables and lists
@@ -78,14 +72,8 @@ public class WindowMainController implements Initializable
 	private void buttonAddFolder()
 	{
 		System.out.println("DEBUG: Add Folder button pressed.");
+		buttonStop();
 		musicPlayer.getInstance().loadFolderDialog();
-	}
-
-	@FXML
-	private void buttonAddFile()
-	{
-		System.out.println("DEBUG: Add File button pressed.");
-
 	}
 
 	@FXML
@@ -99,7 +87,13 @@ public class WindowMainController implements Initializable
 	private void buttonStop()
 	{
 		System.out.println("DEBUG: Stop button pressed.");
-		musicPlayer.getInstance().stopFile();
+		try
+		{
+			musicPlayer.getInstance().stopFile();
+		} catch (Exception ex)
+		{
+			musicPlayer.getInstance().showErrorDialog(ex.getMessage());
+		}
 	}
 
 	@FXML
@@ -107,12 +101,6 @@ public class WindowMainController implements Initializable
 	{
 		System.out.println("DEBUG: Save playlist button pressed.");
 		musicPlayer.getInstance().savePlaylist();
-	}
-
-	@FXML
-	private void buttonLoadPlaylist()
-	{
-		System.out.println("DEBUG: Load playlist button pressed.");
 	}
 
 	/**
@@ -158,7 +146,7 @@ public class WindowMainController implements Initializable
 				FileMP3 selectedFile = (FileMP3) newValue;
 				Image art = selectedFile.getArtwork();
 				artwork.setImage(art);
-
+				
 				try
 				{
 					musicPlayer.getInstance().stopFile();
@@ -166,7 +154,7 @@ public class WindowMainController implements Initializable
 				} catch (Exception ex)
 				{
 					ex.printStackTrace();
-					musicPlayer.getInstance().showErrorDialog(ex.getMessage());
+					//musicPlayer.getInstance().showErrorDialog(ex.getMessage());
 				}
 			}
 		});
@@ -177,6 +165,14 @@ public class WindowMainController implements Initializable
 			public void changed(ObservableValue observable, Object oldValue, Object newValue)
 			{
 				System.out.println("DEBUG: Playlist list row selected.");
+				try
+				{
+					musicPlayer.getInstance().stopFile();
+				} catch (Exception ex)
+				{
+					musicPlayer.getInstance().showErrorDialog(ex.getMessage());
+				}
+				System.out.println("ping");
 				Playlist selectedPlaylist = (Playlist) newValue;
 				musicPlayer.getInstance().displayPlaylist(selectedPlaylist);
 			}

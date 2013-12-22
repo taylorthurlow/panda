@@ -1,0 +1,84 @@
+Hey Sean, here's a bit of information regarding the software, it's usage, and current features.
+
+====
+
+The project was created in Netbeans, and should be imported into Netbeans.
+
+The only external library you'll need is the JDBC SQLite Library that we used in class. JavaFX is
+part of Netbeans, and should work out of the box, because my project is defined as a JavaFX project.
+
+Here's a link to the compiled version if you'd like to take a look at that:
+http://taylorjthurlow.com/mediaplayer.zip
+
+I have uploaded some MP3 files in a 7zip file and hosted them here: http://taylorjthurlow.com/MP3s.7z
+	
+There are two folders here, one for each artist. I've only included a few to cut down on
+file size. If you'd like to edit the metadata on the MP3s, you can find a metadata editor
+here: http://taylorjthurlow.com/tagscan5.1.643.zip
+
+There are a couple quirks with how metadata is handled by software in general, in that there
+are a couple different standards on how info is stored, and the libraries included for media
+playing in JavaFX only take certain types. For example, often the "year" metadata field can
+contain a full date, like "12-4-2012" rather than just "2012". This causes parsing issues and
+it's not something can be fixed without rewriting the way the library pulls metadata information.
+I edited the metadata on these particular MP3s to conform to how the JavaFX mediaplayer likes
+it, and I have had no issues. Normal MP3s will have no issues most of the time, but every once
+and a while you'll find a problematic MP3.
+
+The first thing you'll need to do is use the "Add Folder" button to browse to the folder that you've
+extracted the MP3s to. Pick the appropriate folder, and the software will recursively go through every
+directory and find every single MP3 file. In the event that there is no album artwork in the metadata
+of the MP3, it will look in the folder itself for commonly named jpg files and use that instead.
+
+Once you've selected that folder, hit OK, and it'll import everything into the main list. The list is
+sortable by whatever you like, I find the best is to click the track column, then the artist column,
+so it's sorted first by artist then by track number.
+
+You can single-click on any item in the list to play it. The play/pause and stop buttons to exactly as
+you'd expect them to do.
+
+The "Save Playlist" button will take the currently displayed items and create a new playlist. It will
+then place the new playlist into the playlist list on the left hand side. As long as the file paths for
+the MP3s don't change, then every time you click a playlist on the left hand side, the main table will
+update with all of the information for those given MP3s. You can go between playlists all you like. They
+are all stored in a SQLite database with the paths serialized for easy storage. The list on the left
+will populate from the information in the database. If the playlist has a path that can't be found, it
+just won't be displayed.
+
+As far as error handling goes, I have a custom window that will pop up with error message information
+if one arises.
+
+====
+
+Current issues and problems
+
+The import process works, but I find that sometimes it won't actually import every single file in the
+list. I haven't figured out why, but re-selecting the folder and re-importing fixes the issue. This one
+is particularly hard to diagnose. Another small side effect is that the order of import is erratic, because
+each import has its own thread, they tend to finish at different times. This is where the table sorting
+comes in handy.
+
+There are currently no volume controls or a seek bar. I've made attempts to implement these, and I think it's
+definitely possible, but the amount of time I'm going to have to spend implementing that kind of thing is
+way more time than I had to submit the project. I unfortunately wasted a lot of time trying to implement
+them, and it bit me in the behind in the long run.
+
+There isn't any naming support for playlists, they're just numbered. Editing the list cells proved a lot more
+difficult than normal, and the event system for JavaFX is a bit awkward. I know there's a way to do it, but
+I haven't found one yet. They do work just fine for being playlists, though.
+
+The debugging process for this has been extremely difficult. The disadvantage to using these prebuilt libraries
+is that every once and a while you get stack traces which are essentially foreign, containing hardly any of
+your own code or method calls. I found that a lot of them occur inconsistently and therefore are even harder
+to debug. I've made my best effort to eliminate most of them, and I think I was pretty thorough. Every once
+and a while though, I still get a null pointer when I'm clicking around on things in an effort to get things
+to choke.
+
+====
+
+I'm probably going to keep playing around with this, and hopefully get more stuff working as I go along. The
+transition from Swing to JavaFX was a little bit more bumpy than I thought it'd be, and I really wish I would
+have done it sooner, because it really limited the time that I had to get all the features implemented that
+I wanted to.
+
+All in all, thanks for an awesome year Sean.

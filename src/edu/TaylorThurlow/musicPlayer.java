@@ -26,6 +26,7 @@ public class musicPlayer extends Application
 	private MediaPlayer mainPlayer;
 	private ObservableList<FileMP3> list = FXCollections.observableArrayList();
 	private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
+	private Boolean firstPlay = true;
 
 	@Override
 	public void start(Stage stage) throws Exception
@@ -104,6 +105,7 @@ public class musicPlayer extends Application
 
 	public void playFile(FileMP3 file) throws Exception
 	{
+		firstPlay = false;
 		File audioFile = new File(file.getPath());
 		Media media = new Media(audioFile.toURI().toURL().toString());
 		mainPlayer = new MediaPlayer(media);
@@ -120,12 +122,15 @@ public class musicPlayer extends Application
 
 	public void playPause()
 	{
-		if (mainPlayer.getStatus() == MediaPlayer.Status.PAUSED)
+		if (!firstPlay)
 		{
-			mainPlayer.play();
-		} else if (mainPlayer.getStatus() == MediaPlayer.Status.PLAYING)
-		{
-			mainPlayer.pause();
+			if (mainPlayer.getStatus() == MediaPlayer.Status.PAUSED)
+			{
+				mainPlayer.play();
+			} else if (mainPlayer.getStatus() == MediaPlayer.Status.PLAYING)
+			{
+				mainPlayer.pause();
+			}
 		}
 	}
 
@@ -174,19 +179,12 @@ public class musicPlayer extends Application
 		}
 	}
 
-	public void stopFile()
+	public void stopFile() throws Exception
 	{
-		try
+		if (!firstPlay)
 		{
-			if (mainPlayer.getStatus() == MediaPlayer.Status.PLAYING)
-			{
-				mainPlayer.stop();
-			}
-		} catch (Exception e)
-		{
-			showErrorDialog(e.getMessage());
+			mainPlayer.stop();
 		}
-
 	}
 
 	public void populatePlaylistsList()
