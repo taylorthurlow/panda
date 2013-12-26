@@ -146,7 +146,7 @@ public class WindowMainController implements Initializable
 				FileMP3 selectedFile = (FileMP3) newValue;
 				Image art = selectedFile.getArtwork();
 				artwork.setImage(art);
-				
+
 				try
 				{
 					musicPlayer.getInstance().stopFile();
